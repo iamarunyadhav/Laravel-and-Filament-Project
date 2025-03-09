@@ -13,6 +13,6 @@ class ProductType extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(ProductCategory::class, 'type_assignment', 'type_id', 'category_id');
+        return $this->belongsToMany(ProductCategory::class, 'type_assignments', 'type_id', 'category_id');
     }
 }

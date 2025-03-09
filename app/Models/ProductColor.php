@@ -9,10 +9,10 @@ class ProductColor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'hex_code'];
+    protected $fillable = ['name', 'description', 'hex_code'];
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'product_color_id');
     }
 }
