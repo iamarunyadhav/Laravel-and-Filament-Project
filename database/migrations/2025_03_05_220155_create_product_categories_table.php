@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->text('description')->nullable();
             $table->string('external_url', 255)->nullable();
+            $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
             // $table->foreignId('product_color_id')
             //       ->constrained('product_colors')
             //       ->onDelete('cascade');
