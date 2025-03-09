@@ -120,8 +120,3 @@ For API endpoints and usage instructions, refer to Postman documentation or Open
 
 ## 👨‍💻 Author
 **Arunpragash Alwar**
-
----
-
-_This README was auto-generated for Filament project setup and deployment._
-
