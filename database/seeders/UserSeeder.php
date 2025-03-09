@@ -12,11 +12,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Admin',
                 'email_verified_at' => now(),
-                'password' => bcrypt('admin123'),
+                'password' => bcrypt('Admin@1234'),
                 'remember_token' => Str::random(10),
             ]
         );
