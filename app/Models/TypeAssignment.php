@@ -11,15 +11,20 @@ class TypeAssignment extends Model
 
     protected $table = 'type_assignments';
 
-    protected $fillable = ['type_assignments_type', 'type_assignments_id', 'my_bonus_field', 'type_id'];
+    protected $fillable = ['type_assignments_id','type_id','my_bonus_field','type_assignments_type'];
 
     public function productType()
     {
         return $this->belongsTo(ProductType::class, 'type_id');
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'type_assignments_id');
+    }
+
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'type_assignments_id');
+        return $this->belongsTo(ProductCategory::class);
     }
 }

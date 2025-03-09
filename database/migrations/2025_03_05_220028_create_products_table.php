@@ -17,7 +17,10 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('product_category_id')->constrained('product_categories')->onDelete('cascade');
             $table->foreignId('product_color_id')->constrained('product_colors')->onDelete('cascade');
+            // $table->foreignId('product_type_id')->nullable()->constrained('product_types')->onDelete('cascade');
             $table->timestamps();
+
+
         });
     }
 

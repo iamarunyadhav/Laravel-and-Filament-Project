@@ -21,21 +21,13 @@ class Product extends Model
         return $this->belongsTo(ProductColor::class, 'product_color_id');
     }
 
-    public function typeAssignments()
-    {
-        return $this->belongsToMany(TypeAssignment::class, 'product_type_assignments');
-    }
-
     public function productTypes()
     {
-        return $this->hasManyThrough(
-            ProductType::class,
-            TypeAssignment::class,
-            'type_assignments_id', // Foreign key on TypeAssignment table
-            'id', // Foreign key on ProductType table
-            'id', // Local key on Product table
-            'type_id' // Local key on TypeAssignment table
-        );
+        // return $this->belongsToMany(ProductType::class, 'type_assignments','type_assignments_id', 'type_id');
+
+        return $this->belongsToMany(ProductType::class, 'type_assignments', 'product_id', 'type_id')
+                    ->withPivot('type_assignments_type', 'my_bonus_field')
+                    ->withTimestamps();
     }
 
     public function isCategoryAllowed(ProductCategory $category): bool

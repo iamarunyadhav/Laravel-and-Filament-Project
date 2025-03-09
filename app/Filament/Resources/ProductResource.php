@@ -3,14 +3,19 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductColor;
+use App\Models\ProductType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\TextEntry;
@@ -27,33 +32,18 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Card::make([
-                    Forms\Components\TextInput::make('name')
-                        ->required(),
-                    Forms\Components\Textarea::make('description')
-                        ->columnSpanFull(),
-                    Forms\Components\Select::make('product_category_id')
-                        ->label('Category')
-                        ->options(ProductCategory::all()->pluck('name', 'id'))
-                        ->required(),
-                    Forms\Components\Select::make('product_color_id')
-                        ->label('Color')
-                        ->options(ProductColor::all()->pluck('name', 'id'))
-                        ->required()
-                ]),
-                Forms\Components\Card::make([
-                    Forms\Components\Repeater::make('typeAssignments')
-                        ->relationship('typeAssignments')
-                        ->schema([
-                            Forms\Components\TextInput::make('product_type')
-                                ->label('Product Type')
-                                ->required(),
-                            Forms\Components\TextInput::make('bonus')
-                                ->label('Bonus')
-                                ->numeric(),
-                        ])
-                        ->columnSpanFull(),
-                ]),
+                Forms\Components\TextInput::make('name')
+                    ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('product_category_id')
+                    ->label('Category')
+                    ->options(ProductCategory::all()->pluck('name', 'id'))
+                    ->required(),
+                Forms\Components\Select::make('product_color_id')
+                    ->label('Color')
+                    ->options(ProductColor::all()->pluck('name', 'id'))
+                    ->required(),
             ]);
     }
 
@@ -78,7 +68,10 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+            ])
+            ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -91,6 +84,13 @@ class ProductResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
@@ -99,29 +99,52 @@ class ProductResource extends Resource
                     ->schema([
                         TextEntry::make('name')
                             ->label('Product Name')
-                            ->columnSpanFull(),
+                            ->columnSpan(1),
                         TextEntry::make('description')
                             ->label('Description')
-                            ->columnSpanFull(),
-                    ]),
-                Section::make('Category & Color')
-                    ->schema([
+                            ->columnSpan(1),
                         TextEntry::make('productCategory.name')
                             ->label('Category')
-                            ->columnSpanFull(),
+                            ->columnSpan(1),
                         TextEntry::make('productColor.name')
                             ->label('Color')
-                            ->columnSpanFull(),
+                            ->columnSpan(1),
                     ]),
-                Section::make('Timestamps')
-                    ->schema([
-                        TextEntry::make('created_at')
-                            ->label('Created At')
-                            ->columnSpanFull(),
-                        TextEntry::make('updated_at')
-                            ->label('Updated At')
-                            ->columnSpanFull(),
-                    ]),
+                ])->columns(2)
+;
+
+    }
+
+    public static function tables(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('api_unique_number')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

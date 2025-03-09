@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
+use App\Models\ProductType;
 use App\Models\TypeAssignment;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -10,13 +12,18 @@ class TypeAssignmentSeeder extends Seeder
 {
     public function run()
     {
-        $assignments = [
-            ['type_assignments_type' => 'Category', 'type_assignments_id' => 1, 'type_id' => 1, 'my_bonus_field' => 'Bonus 1'],
-            ['type_assignments_type' => 'Category', 'type_assignments_id' => 2, 'type_id' => 2, 'my_bonus_field' => 'Bonus 2']
-        ];
+        $productA = Product::where('name', 'Product A')->first();
+        $productB = Product::where('name', 'Product B')->first();
+        $electronics = ProductType::where('name', 'Electronics')->first();
+        $furniture = ProductType::where('name', 'Furniture')->first();
 
-        foreach ($assignments as $assignment) {
-            TypeAssignment::create($assignment);
+        // Attach product types to products
+        if ($productA && $electronics) {
+            $productA->productTypes()->attach($electronics->id);
+        }
+
+        if ($productB && $furniture) {
+            $productB->productTypes()->attach($furniture->id);
         }
     }
 }
