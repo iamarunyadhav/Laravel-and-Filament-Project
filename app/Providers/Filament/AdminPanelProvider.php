@@ -24,7 +24,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->brandName('My Custom Admin')
+            ->brandName('Admin Panel')
             ->id('admin')
             ->path('admin')
             ->login()
