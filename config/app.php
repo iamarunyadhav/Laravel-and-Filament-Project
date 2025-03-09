@@ -123,4 +123,10 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'custom_feature' => env('CUSTOM_FEATURE_ENABLED', false),
+
+    LaraZeus\Akin\AkinServiceProvider::class,
+
+
+
 ];
