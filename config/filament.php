@@ -86,7 +86,7 @@ return [
 
     'livewire_loading_delay' => 'default',
 
-    'theme' => \LaraZeus\Akin\Themes\Akin::class,
+    // 'theme' => \LaraZeus\Akin\Themes\Akin::class,
 
 
 
