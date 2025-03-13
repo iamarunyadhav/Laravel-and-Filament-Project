@@ -44,6 +44,15 @@ class ProductResource extends Resource
                     ->label('Color')
                     ->options(ProductColor::all()->pluck('name', 'id'))
                     ->required(),
+
+                Forms\Components\TextInput::make('price')
+                ->label('Product Price')
+                ->suffixAction(
+                    Forms\Components\Actions\Action::make('fetch_price')
+                        ->icon('heroicon-o-refresh')
+                        ->action(fn ($state, $set) => $set('price', fetchPriceFromApi($state)))
+                        ->tooltip('Fetch latest price from API')
+                )
             ]);
     }
 
@@ -68,7 +77,13 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Actions\Action::make('Process Job')
+                // ->icon('heroicon-o-cog')
+                // ->action(fn (Product $product) => dispatch(new ProcessProductJob($product)))
+                // ->requiresConfirmation()
+                // ->successNotificationTitle('Processing started!')
+
             ])
             ->filters([
                 //

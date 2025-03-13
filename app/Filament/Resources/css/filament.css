@@ -1,0 +1,20 @@
+/* Change the background color of Filament */
+body {
+    background-color: #1a1a2e !important; /* Dark Blue Theme */
+}
+
+/* Customize the sidebar */
+.filament-sidebar {
+    background-color: #16213e !important;
+}
+
+/* Change primary button colors */
+.filament-button {
+    background-color: #0f3460 !important;
+    border-radius: 8px;
+}
+
+/* Customize text color */
+.filament-main-content {
+    color: #e94560 !important;
+}

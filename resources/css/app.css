@@ -15,6 +15,40 @@
     @apply bg-blue-900 text-white;
 }
 
+.fi-body {
+    @apply bg-gray-900 text-white;
+}
+
 .fi-sidebar a {
     @apply hover:bg-gray-800;
+}
+
+
+.fi-main-content {
+    @apply bg-gray-100 text-gray-900;
+}
+
+/* ✅ Customize Button Colors */
+.fi-button {
+    @apply bg-green-600 text-white hover:bg-green-700;
+}
+
+/* ✅ Customize Primary Buttons */
+.fi-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+/* ✅ Customize Secondary Buttons */
+.fi-secondary {
+    @apply bg-gray-600 text-white hover:bg-gray-700;
+}
+
+/* ✅ Customize Form Inputs */
+.fi-input {
+    @apply border-gray-300 focus:border-blue-500 focus:ring-blue-500;
+}
+
+/* ✅ Customize Card Background */
+.fi-card {
+    @apply bg-white shadow-lg rounded-lg p-4;
 }

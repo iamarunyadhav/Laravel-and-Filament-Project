@@ -28,13 +28,17 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->colors([
-                'primary' => Color::Amber,
-            ])
+            // ->viteTheme('resources/css/app.css')
             // ->colors([
-            //     'primary' => '#1E40AF', // Custom Blue
-            //     'secondary' => '#FACC15', // Yellow Accent
+            //     'primary' => Color::Amber,
             // ])
+            ->colors([
+                'primary' => '#1E40AF', // Custom Blue
+                'secondary' => '#FACC15', // Yellow Accent
+            ])
+
+            // ->brandName('My Custom Theme')
+            // ->viteTheme('resources/css/filament.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

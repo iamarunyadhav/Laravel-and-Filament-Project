@@ -125,8 +125,6 @@ return [
 
     'custom_feature' => env('CUSTOM_FEATURE_ENABLED', false),
 
-    LaraZeus\Akin\AkinServiceProvider::class,
-
 
 
 ];
